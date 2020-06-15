@@ -4,7 +4,8 @@ import (
 	"context"
 	"fmt"
 
-	"github.com/golang-zy/go-demo/go-micro/greeter/proto"
+	"github.com/zy-free/micro-study/greeter/proto"
+
 	micro "github.com/micro/go-micro/v2"
 )
 

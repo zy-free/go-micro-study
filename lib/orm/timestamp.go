@@ -4,11 +4,6 @@ import (
 	. "github.com/jinzhu/gorm"
 )
 
-func init() {
-	DefaultCallback.Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
-	DefaultCallback.Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
-}
-
 // updateTimeStampForCreateCallback will set `ctime`, `mtime` when creating
 func updateTimeStampForCreateCallback(scope *Scope) {
 	if !scope.HasError() {

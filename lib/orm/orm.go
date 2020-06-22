@@ -30,5 +30,7 @@ func NewMySQL(c *Config) (db *gorm.DB) {
 	db.DB().SetMaxIdleConns(c.Idle)
 	db.DB().SetMaxOpenConns(c.Active)
 	db.DB().SetConnMaxLifetime(c.IdleTimeout / time.Second)
+	db.Callback().Create().Replace("gorm:update_time_stamp", updateTimeStampForCreateCallback)
+	db.Callback().Update().Replace("gorm:update_time_stamp", updateTimeStampForUpdateCallback)
 	return
 }

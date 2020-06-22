@@ -19,7 +19,7 @@ type Dao struct {
 func New() *Dao {
 
 	d := &Dao{
-		member: orm.NewMySQL(&orm.Config{DSN: "username:password@tcp(host)/db_name?charset=utf8&allowOldPasswords=1"}),
+		member: orm.NewMySQL(&orm.Config{DSN: "root:root@tcp(127.0.0.1)/micro_member?charset=utf8&parseTime=true"}),
 	}
 	return d
 }

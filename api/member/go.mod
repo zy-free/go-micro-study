@@ -8,5 +8,5 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/jinzhu/gorm v1.9.14
 	github.com/micro/go-micro/v2 v2.9.0
-	github.com/zy-free/micro-study/lib v0.0.0-20200622080736-bb66028f8a2d
+	github.com/zy-free/micro-study v0.0.0-20200622101635-817a2533073f
 )

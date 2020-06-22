@@ -440,9 +440,8 @@ github.com/xeipuuv/gojsonschema v0.0.0-20180618132009-1d523034197f/go.mod h1:5yf
 github.com/xeipuuv/gojsonschema v1.1.0/go.mod h1:5yf86TLmAcydyeJq5YvxkGPE2fm/u4myDekKRoLuqhs=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2 h1:eY9dn8+vbi4tKz5Qo6v2eYzo7kUS51QINcR5jNpbZS8=
 github.com/xiang90/probing v0.0.0-20190116061207-43a291ad63a2/go.mod h1:UETIi67q53MR2AWcXfiuqkDkRtnGDLqkBTpCHuJHxtU=
-github.com/zy-free/micro-study v0.0.0-20200622080736-bb66028f8a2d h1:JgceYMnXfESPyU3nt5c9kL42Y1x59ek1MkZ1QFt8HVk=
-github.com/zy-free/micro-study/lib v0.0.0-20200622080736-bb66028f8a2d h1:bhE4RGBUjVXkO9rKvptjZdr1HrdVdGn2AifwqFZVt6Y=
-github.com/zy-free/micro-study/lib v0.0.0-20200622080736-bb66028f8a2d/go.mod h1:APGpcoXfyF2fPLudWYRx9IcpCEK8euNnfS6lrjddpHo=
+github.com/zy-free/micro-study v0.0.0-20200622101635-817a2533073f h1:Kdg/gMA6BLXyvgcdhbl2VjVSShAE/4o7Is+Lu7nXYEE=
+github.com/zy-free/micro-study v0.0.0-20200622101635-817a2533073f/go.mod h1:88Bd02NolzOOvOTon7ZM6IgqjEvts+Wz7Bg3O9SiwwE=
 go.etcd.io/bbolt v1.3.4 h1:hi1bXHMVrlQh6WwxAy+qZCV/SYIlqo+Ushwdpa4tAKg=
 go.etcd.io/bbolt v1.3.4/go.mod h1:G5EMThwa9y8QZGBClrRx5EY+Yw9kAhnjy3bSjsnlVTQ=
 go.opencensus.io v0.20.1/go.mod h1:6WKK9ahsWS3RSO+PY9ZHZUfv2irvY6gN279GOPZjmmk=

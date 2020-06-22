@@ -1,6 +1,6 @@
 syntax = "proto3";
 
-service Greeter {
+service Member {
     rpc Hello(HelloRequest) returns (HelloResponse) {}
 }
 
@@ -9,5 +9,5 @@ message HelloRequest {
 }
 
 message HelloResponse {
-    string greeting = 2;
+    string say = 1;
 }

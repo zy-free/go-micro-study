@@ -1,7 +1,14 @@
 package service
 
-import "github.com/zy-free/micro-study/api/member/model"
+import (
+	"github.com/zy-free/micro-study/api/member/model"
+	"github.com/zy-free/micro-study/lib/ecode"
+)
 
-func (s *Service) CreateMember(arg *model.ArgMemberCreate) (int64, error) {
-	return s.dao.CreateMember(arg)
+func (s *Service) AddMember(arg *model.ArgMemberCreate) (int64, error) {
+	id, err := s.dao.AddMember(arg)
+	if err != nil {
+		return 0, ecode.ChannelNotExist
+	}
+	return id, nil
 }

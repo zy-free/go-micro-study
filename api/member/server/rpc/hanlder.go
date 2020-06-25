@@ -3,7 +3,14 @@ package rpc
 import (
 	"context"
 	"github.com/zy-free/micro-study/api/member/proto"
+	"github.com/zy-free/micro-study/api/member/service"
 )
+
+var svc *service.Service
+
+func init() {
+	svc = service.New()
+}
 
 type MemberServer struct{}
 

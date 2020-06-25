@@ -1,14 +1,12 @@
 package main
 
 import (
-	"log"
-
-	micro "github.com/micro/go-micro/v2"
+	"github.com/micro/go-micro/v2"
 	"github.com/micro/go-micro/v2/web"
-
 	"github.com/zy-free/micro-study/api/member/proto"
-	"github.com/zy-free/micro-study/api/member/server/http"
 	"github.com/zy-free/micro-study/api/member/server/rpc"
+
+	"github.com/zy-free/micro-study/api/member/server/http"
 )
 
 func main() {
@@ -19,7 +17,7 @@ func main() {
 	)
 	webService.Init()
 	// Run webService
-	go webService.Run()
+	webService.Run()
 
 	// Create rpcService
 	rpcService := micro.NewService(
@@ -30,6 +28,6 @@ func main() {
 	proto.RegisterMemberHandler(rpcService.Server(), new(rpc.MemberServer))
 	// Run the server
 	if err := rpcService.Run(); err != nil {
-		log.Fatal(err)
+		panic(err)
 	}
 }

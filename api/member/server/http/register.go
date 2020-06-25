@@ -15,7 +15,7 @@ func InitRouter() *gin.Engine {
 
 	router := gin.Default()
 	g := router.Group("/x/api/member")
-	g.POST("", createMember)
+	g.POST("", addMember)
 	g.GET("", getMember)
 	//g.POST("/name/update", setName)
 

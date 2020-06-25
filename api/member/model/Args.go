@@ -1,9 +1,30 @@
 package model
 
-import "github.com/jinzhu/gorm"
+type ArgMemberAdd struct {
+	Phone string `json:"phone" binding:"required"`
+	Name  string `json:"name" binding:"required"`
+}
 
-type ArgMemberCreate struct {
-	gorm.Model
-	Phone string `json:"phone" gorm:"column:phone"`
-	Name  string `json:"name" gorm:"column:name"`
+type ArgMemberInit struct {
+	Phone string `json:"phone"  binding:"required"`
+	Name  string `json:"name"  binding:"required"`
+}
+
+type ArgMemberUpdate struct {
+	ID      int64  `json:"id" `
+	Name    string `json:"name"`
+	Age     int8   `json:"age"`
+	Address string `json:"address"`
+}
+
+type ArgMemberSet struct {
+	Phone   string `json:"phone"`
+	Name    string `json:"name"`
+	Age     int8   `json:"age"`
+	Address string `json:"address"`
+}
+
+type ArgMemberSort []struct {
+	ID       int64 `json:"id"`
+	OrderNum int64 `json:"order_num"`
 }

@@ -2,13 +2,17 @@ package dao
 
 import (
 	"github.com/garyburd/redigo/redis"
-	"github.com/jinzhu/gorm"
-	"github.com/zy-free/micro-study/lib/orm"
+	"github.com/jmoiron/sqlx"
+	"github.com/zy-free/micro-study/api/member/conf"
+	"github.com/zy-free/micro-study/lib/database/mysql"
 )
 
 type Dao struct {
-	member     *gorm.DB
-	memberRead *gorm.DB
+	//member     *gorm.DB
+	//memberRead *gormDB
+	member *sqlx.DB
+	memberRead *sqlx.DB
+
 	redis      *redis.Pool
 	// memcache       *memcache.Pool
 	// es             *elastic.Elastic
@@ -16,10 +20,10 @@ type Dao struct {
 	// tidb
 }
 
-func New() *Dao {
-
+func New(c *conf.Config) *Dao {
 	d := &Dao{
-		member: orm.NewMySQL(&orm.Config{DSN: "root:root@tcp(127.0.0.1)/micro_member?charset=utf8&parseTime=true"}),
+		member: mysql.NewMySQL(c.Mysql.Member),
+		memberRead: mysql.NewMySQL(c.Mysql.MemberRead),
 	}
 	return d
 }

@@ -5,7 +5,7 @@ import (
 	"github.com/zy-free/micro-study/lib/ecode"
 )
 
-func (s *Service) AddMember(arg *model.ArgMemberCreate) (int64, error) {
+func (s *Service) AddMember(arg *model.ArgMemberAdd) (int64, error) {
 	id, err := s.dao.AddMember(arg)
 	if err != nil {
 		return 0, ecode.ChannelNotExist

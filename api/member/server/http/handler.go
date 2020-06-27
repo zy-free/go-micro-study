@@ -14,7 +14,7 @@ func getMember(ctx *gin.Context) {
 }
 
 func addMember(ctx *gin.Context) {
-	arg := &model.ArgMemberCreate{}
+	arg := &model.ArgMemberAdd{}
 	if err := ctx.Bind(arg); err != nil {
 		fmt.Println(err)
 		ctx.JSON(ginResult.Render(http.StatusBadRequest, nil, ecode.RequestErr))

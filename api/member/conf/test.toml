@@ -9,4 +9,11 @@
             active = 5
             idle = 5
             idleTimeout = "4h"
-#[redis]
+[redis]
+    addr = "49.235.139.144:26379"
+    password = "Aa123456,."
+    dialTimeout = "300ms"
+    readTimeout = "500ms"
+    writeTimeout = "500ms"
+    idleTimeout = "80s"
+    expire = "24h"

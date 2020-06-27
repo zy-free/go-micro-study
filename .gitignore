@@ -1,6 +1,9 @@
 go.sum
 .vscode
 
+# config
+*.toml
+
 # Binaries for programs and plugins
 *.exe
 *.dll

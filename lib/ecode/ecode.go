@@ -9,29 +9,24 @@ import (
 )
 
 var (
-	_messages atomic.Value         // NOTE: stored map[string]map[int]string
-	_codes    = map[int]struct{}{} // register codes.
+	_messages atomic.Value       // NOTE: stored map[string]map[int]string
+	_codes    = map[int]string{} // register codes.
 )
-
-// Register register ecode message map.
-func Register(cm map[int]string) {
-	_messages.Store(cm)
-}
 
 // New new a ecode.Codes by int value.
 // NOTE: ecode must unique in global, the New will check repeat and then panic.
-func New(e int) Code {
+func New(e int, es string) Code {
 	if e <= 0 {
 		panic("business ecode must greater than zero")
 	}
-	return add(e)
+	return add(e, es)
 }
 
-func add(e int) Code {
+func add(e int, es string) Code {
 	if _, ok := _codes[e]; ok {
 		panic(fmt.Sprintf("ecode: %d already exist", e))
 	}
-	_codes[e] = struct{}{}
+	_codes[e] = es
 	return Int(e)
 }
 
@@ -63,11 +58,11 @@ func (e Code) Code() int { return int(e) }
 
 // Message return error message
 func (e Code) Message() string {
-	if cm, ok := _messages.Load().(map[int]string); ok {
-		if msg, ok := cm[e.Code()]; ok {
-			return msg
-		}
+
+	if msg, ok := _codes[e.Code()]; ok {
+		return msg
 	}
+
 	return e.Error()
 }
 

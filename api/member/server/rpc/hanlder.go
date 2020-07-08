@@ -2,7 +2,7 @@ package rpc
 
 import (
 	"context"
-	"github.com/zy-free/micro-study/api/member/proto"
+	proto "github.com/zy-free/micro-study/api/member/proto"
 	"github.com/zy-free/micro-study/api/member/service"
 )
 
@@ -14,7 +14,14 @@ func init() {
 
 type MemberServer struct{}
 
-func (s *MemberServer) Hello(ctx context.Context, req *proto.HelloRequest, rsp *proto.HelloResponse) error {
-	rsp.Say = "memberServer Hello: " + req.Name
+func (s *MemberServer) GetByID(ctx context.Context, req *proto.GetByIDRequest, rsp *proto.MemberResponse) (err error) {
+	member, err := svc.GetMember(req.Id)
+	if err != nil {
+		return err
+	}
+	rsp.Id = member.ID
+	rsp.Name = member.Name
+	rsp.Phone = member.Phone
+	rsp.Age = int32(member.Age)
 	return nil
 }

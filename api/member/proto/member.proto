@@ -1,13 +1,16 @@
 syntax = "proto3";
 
 service Member {
-    rpc Hello(HelloRequest) returns (HelloResponse) {}
+    rpc GetByID (GetByIDRequest) returns (MemberResponse);
 }
 
-message HelloRequest {
-    string name = 1;
+message GetByIDRequest {
+    int64 id = 1;
 }
 
-message HelloResponse {
-    string say = 1;
+message MemberResponse {
+    int64 id = 1;
+    string phone = 2;
+    string name = 3;
+    int32 age = 4;
 }

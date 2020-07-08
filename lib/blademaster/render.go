@@ -1,4 +1,4 @@
-package ginResult
+package blademaster
 
 import (
 	"github.com/zy-free/micro-study/lib/ecode"

@@ -62,7 +62,7 @@ func (dao *Dao) DeleteMember(id int64) (err error) {
 }
 
 // 更新单个
-func (dao *Dao) UpdateMember(arg model.ArgMemberUpdate) (err error) {
+func (dao *Dao) UpdateMember(arg *model.ArgMemberUpdate) (err error) {
 	sql := "UPDATE member SET name =:name, "
 	updateMap := map[string]interface{}{}
 	updateMap["id"] = arg.ID
@@ -83,18 +83,18 @@ func (dao *Dao) UpdateMember(arg model.ArgMemberUpdate) (err error) {
 }
 
 // 更新或创建
-func (dao *Dao) SetMember(arg model.ArgMemberSet) (err error) {
+func (dao *Dao) SetMember(arg *model.ArgMemberSet) (err error) {
 	now := time.Now()
-	sql := "INSERT INTO member (phone,name,age,address,created_at,updated_at) VALUES (?,?,?,?,?,?) " +
+	sql := "INSERT INTO member (id,phone,name,age,address,created_at,updated_at) VALUES (?,?,?,?,?,?,?) " +
 		"ON DUPLICATE KEY UPDATE phone=?,name=?,age=?,address=?,updated_at=?"
-	if _, err = dao.member.Exec(sql, arg.Phone, arg.Name, arg.Age, arg.Address, now, now, arg.Phone, arg.Name, arg.Age, arg.Address, now); err != nil {
+	if _, err = dao.member.Exec(sql, arg.ID, arg.Phone, arg.Name, arg.Age, arg.Address, now, now, arg.Phone, arg.Name, arg.Age, arg.Address, now); err != nil {
 		return errors.Wrapf(err, "SetMember arg(%v)", arg)
 	}
 	return
 }
 
 // 批量更改顺序
-func (dao *Dao) BatchUpdateMemberOrder(args model.ArgMemberSort) (err error) {
+func (dao *Dao) BatchUpdateMemberSort(args model.ArgMemberSort) (err error) {
 	var (
 		buf bytes.Buffer
 		ids []int64
@@ -174,7 +174,7 @@ func (dao *Dao) QueryMemberByName(name string) (res []*model.Member, err error) 
 func (dao *Dao) QueryMemberByIDs(ids []int64) (res map[int64]*model.Member, err error) {
 	var t []*model.Member
 	res = make(map[int64]*model.Member)
-	sql := "SELECT id,phone,name FROM member WHERE id IN ("+xstr.JoinInts(ids)+") AND deleted = 0 "
+	sql := "SELECT id,phone,name FROM member WHERE id IN (" + xstr.JoinInts(ids) + ") AND deleted = 0 "
 	if err = dao.member.Select(&t, sql); err != nil {
 		return res, errors.Wrapf(err, "QueryMemberByIDs ids(%v)", ids)
 	}

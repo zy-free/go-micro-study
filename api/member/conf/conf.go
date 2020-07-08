@@ -3,7 +3,6 @@ package conf
 import (
 	"flag"
 	"github.com/BurntSushi/toml"
-	"github.com/davecgh/go-spew/spew"
 	"github.com/zy-free/micro-study/lib/cache/redis"
 	"github.com/zy-free/micro-study/lib/database/mysql"
 	xtime "github.com/zy-free/micro-study/lib/time"
@@ -53,9 +52,9 @@ func local() (err error) {
 
 func remote() (err error) {
 	confPath = os.Getenv("CONFIG_PATH") // micro-study/api/member/conf/test.toml
-	spew.Dump("remote confPath:", confPath)
+	//spew.Dump("remote confPath:", confPath)
 	_, err = toml.DecodeFile(confPath, &Conf)
-	spew.Dump("remote config init:", Conf)
+	//spew.Dump("remote config init:", Conf)
 	// todo 引入配置中心 实际环境读取不同配置
 	return nil
 }

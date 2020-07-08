@@ -3,21 +3,31 @@
 
 - http框架
     - [x] [gin] (web框架)
-    - [ ] validate
+    - [x] validate
+    - [x] 错误码
 - 权限
     - [ ] JWT
     - [ ] [Casbin] (鉴权)
 - 日志
     - [ ] Metrics
-    - [ ] Access Log
+    - [x] Access Log
     - [ ] Tracing Opentracing+TraceID
+- 服务发现
+    - [x] ETCD
+- 服务降级
+    - [ ] 
+- 服务熔断
+    - [ ] 
+- 服务限流
+    - [ ] 
 - 配置中心
     - [ ] XConf
 - 领域驱动
 	- [x] 整洁架构
 - ORM
 	- [x] gorm
-
+- redis
+	- [x] redis
 - 发布
 	- [ ] 灰度
 	- [ ] 蓝绿

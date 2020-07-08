@@ -7,7 +7,7 @@ import (
 )
 
 const (
-	_memberKey = "m:%d" // set r:mid
+	_memberKey = "m:%d" // set m:mid
 )
 
 // todo 参考favorite 然后依靠databus设置缓存，那么micro就要自己照消息组件

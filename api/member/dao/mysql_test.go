@@ -135,12 +135,12 @@ func Test_SetMember(t *testing.T) {
 
 }
 
-func Test_BatchUpdateMemberOrder(t *testing.T) {
+func Test_BatchUpdateMemberSort(t *testing.T) {
 
 	sort := model.ArgMemberSort{{1, 1}, {2, 2}, {3, 3}}
 
-	convey.Convey("BatchUpdateMemberOrder", t, func(ctx convey.C) {
-		err := d.BatchUpdateMemberOrder(sort)
+	convey.Convey("BatchUpdateMemberSort", t, func(ctx convey.C) {
+		err := d.BatchUpdateMemberSort(sort)
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
@@ -152,7 +152,7 @@ func Test_GetMemberByID(t *testing.T) {
 		id = int64(2)
 	)
 	convey.Convey("GetMemberByID", t, func(ctx convey.C) {
-		member,err := d.GetMemberByID(id)
+		member, err := d.GetMemberByID(id)
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
@@ -164,36 +164,36 @@ func Test_GetMemberByID(t *testing.T) {
 
 func Test_GetMemberMaxAge(t *testing.T) {
 	convey.Convey("GetMemberMaxAge", t, func(ctx convey.C) {
-		maxAge,err := d.GetMemberMaxAge()
+		maxAge, err := d.GetMemberMaxAge()
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
 		ctx.Convey("Then maxAge should be >=0.", func(ctx convey.C) {
-			ctx.So(maxAge, convey.ShouldBeGreaterThanOrEqualTo,0)
+			ctx.So(maxAge, convey.ShouldBeGreaterThanOrEqualTo, 0)
 		})
 	})
 }
 
 func Test_GetMemberSumAge(t *testing.T) {
 	convey.Convey("GetMemberSumAge", t, func(ctx convey.C) {
-		sumAge,err := d.GetMemberSumAge()
+		sumAge, err := d.GetMemberSumAge()
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
 		ctx.Convey("Then maxAge should be >=0.", func(ctx convey.C) {
-			ctx.So(sumAge, convey.ShouldBeGreaterThanOrEqualTo,0)
+			ctx.So(sumAge, convey.ShouldBeGreaterThanOrEqualTo, 0)
 		})
 	})
 }
 
 func Test_CountMember(t *testing.T) {
 	convey.Convey("CountMember", t, func(ctx convey.C) {
-		count,err := d.CountMember()
+		count, err := d.CountMember()
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
 		ctx.Convey("Then count should be >=0.", func(ctx convey.C) {
-			ctx.So(count, convey.ShouldBeGreaterThanOrEqualTo,0)
+			ctx.So(count, convey.ShouldBeGreaterThanOrEqualTo, 0)
 		})
 	})
 }
@@ -203,7 +203,7 @@ func Test_HasMemberByID(t *testing.T) {
 		id = int64(100000)
 	)
 	convey.Convey("HasMemberByID", t, func(ctx convey.C) {
-		has,err := d.HasMemberByID(id)
+		has, err := d.HasMemberByID(id)
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
@@ -218,30 +218,25 @@ func Test_QueryMemberByName(t *testing.T) {
 		name = "zhouyu"
 	)
 	convey.Convey("QueryMemberByName", t, func(ctx convey.C) {
-		res,err := d.QueryMemberByName(name)
+		res, err := d.QueryMemberByName(name)
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
 		ctx.Convey("Then res should  be =2.", func(ctx convey.C) {
-			ctx.So(len(res), convey.ShouldEqual,2)
+			ctx.So(len(res), convey.ShouldEqual, 2)
 		})
 	})
 }
 
-
 func Test_QueryMemberByIDs(t *testing.T) {
-	ids := []int64{4,5}
+	ids := []int64{4, 5}
 	convey.Convey("QueryMemberByIDs", t, func(ctx convey.C) {
-		res,err := d.QueryMemberByIDs(ids)
+		res, err := d.QueryMemberByIDs(ids)
 		ctx.Convey("Then err should be nil.", func(ctx convey.C) {
 			ctx.So(err, convey.ShouldBeNil)
 		})
 		ctx.Convey("Then len(res) should be =2.", func(ctx convey.C) {
-			ctx.So(len(res), convey.ShouldEqual ,2)
+			ctx.So(len(res), convey.ShouldEqual, 2)
 		})
 	})
 }
-
-
-
-

@@ -1,4 +1,4 @@
-package model
+package member
 
 import (
 	"github.com/vmihailenco/msgpack"

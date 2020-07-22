@@ -1,9 +1,9 @@
-package dao
+package member
 
 import (
 	"fmt"
 	"github.com/smartystreets/goconvey/convey"
-	"github.com/zy-free/micro-study/api/member/model"
+	"github.com/zy-free/micro-study/api/member/model/member"
 	"testing"
 )
 
@@ -29,7 +29,7 @@ func Test_AddMemberCache(t *testing.T) {
 	)
 
 	convey.Convey("AddMemberCache", t, func(ctx convey.C) {
-		err := d.AddMemberCache(id, &model.Member{
+		err := d.AddMemberCache(id, &member.Member{
 			ID:    id,
 			Phone: phone,
 			Name:  name,

@@ -1,4 +1,4 @@
-package dao
+package member
 
 import (
 	redis "github.com/go-redis/redis"

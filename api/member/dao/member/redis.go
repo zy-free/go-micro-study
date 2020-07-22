@@ -1,9 +1,9 @@
-package dao
+package member
 
 import (
 	"fmt"
 	"github.com/pkg/errors"
-	"github.com/zy-free/micro-study/api/member/model"
+	memberModel "github.com/zy-free/micro-study/api/member/model/member"
 )
 
 const (
@@ -24,16 +24,16 @@ func (dao *Dao) ExpireMemberCache(id int64) (ok bool, err error) {
 	return
 }
 
-func (dao *Dao) GetMemberCache(id int64) (member *model.Member, err error) {
+func (dao *Dao) GetMemberCache(id int64) (member *memberModel.Member, err error) {
 	key := memberKey(id)
-	member = &model.Member{}
+	member = &memberModel.Member{}
 	if err = dao.redis.Get(key).Scan(member); err != nil {
 		return nil, errors.Wrapf(err, "GetMemberCache id(%d)", id)
 	}
 	return
 }
 
-func (dao *Dao) AddMemberCache(id int64, member *model.Member) (err error) {
+func (dao *Dao) AddMemberCache(id int64, member *memberModel.Member) (err error) {
 	key := memberKey(id)
 	if err = dao.redis.Set(key, member, dao.redisExpire).Err(); err != nil {
 		return errors.Wrapf(err, "AddMemberCache id(%d),member(%v)", id, member)

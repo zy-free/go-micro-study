@@ -1,4 +1,4 @@
-package model
+package member
 
 type ArgMemberAdd struct {
 	Phone string `json:"phone" binding:"required"`

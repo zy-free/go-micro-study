@@ -1,7 +1,7 @@
-package dao
+package member
 
 import (
-	"github.com/zy-free/micro-study/api/member/model"
+	"github.com/zy-free/micro-study/api/member/model/member"
 	"testing"
 
 	"github.com/smartystreets/goconvey/convey"
@@ -14,7 +14,7 @@ func Test_InitMember(t *testing.T) {
 	)
 
 	convey.Convey("InitMember", t, func(ctx convey.C) {
-		err := d.InitMember(&model.ArgMemberInit{
+		err := d.InitMember(&member.ArgMemberInit{
 			Phone: phone,
 			Name:  name,
 		})
@@ -31,7 +31,7 @@ func Test_AddMember(t *testing.T) {
 	)
 
 	convey.Convey("AddMember", t, func(ctx convey.C) {
-		_, err := d.AddMember(&model.ArgMemberAdd{
+		_, err := d.AddMember(&member.ArgMemberAdd{
 			Phone: phone,
 			Name:  name,
 		})
@@ -43,14 +43,14 @@ func Test_AddMember(t *testing.T) {
 
 func Test_BatchAddMember(t *testing.T) {
 	var (
-		members []*model.ArgMemberAdd
+		members []*member.ArgMemberAdd
 	)
-	members = append(members, &model.ArgMemberAdd{
+	members = append(members, &member.ArgMemberAdd{
 		Phone: "1573",
 		Name:  "zhouyu",
 	})
 
-	members = append(members, &model.ArgMemberAdd{
+	members = append(members, &member.ArgMemberAdd{
 		Phone: "1574",
 		Name:  "zhouyu",
 	})
@@ -85,7 +85,7 @@ func Test_UpdateMember(t *testing.T) {
 	)
 
 	convey.Convey("UpdateMember", t, func(ctx convey.C) {
-		err := d.UpdateMember(model.ArgMemberUpdate{
+		err := d.UpdateMember(member.ArgMemberUpdate{
 			ID:      id,
 			Name:    name,
 			Age:     age,
@@ -108,7 +108,7 @@ func Test_SetMember(t *testing.T) {
 	)
 
 	convey.Convey("SetMember", t, func(ctx convey.C) {
-		err := d.SetMember(model.ArgMemberSet{
+		err := d.SetMember(member.ArgMemberSet{
 			Phone:   phone,
 			Name:    name,
 			Age:     age,
@@ -121,7 +121,7 @@ func Test_SetMember(t *testing.T) {
 	})
 
 	convey.Convey("SetMember", t, func(ctx convey.C) {
-		err := d.SetMember(model.ArgMemberSet{
+		err := d.SetMember(member.ArgMemberSet{
 			Phone:   phone,
 			Name:    name2,
 			Age:     age,
@@ -137,7 +137,7 @@ func Test_SetMember(t *testing.T) {
 
 func Test_BatchUpdateMemberSort(t *testing.T) {
 
-	sort := model.ArgMemberSort{{1, 1}, {2, 2}, {3, 3}}
+	sort := member.ArgMemberSort{{1, 1}, {2, 2}, {3, 3}}
 
 	convey.Convey("BatchUpdateMemberSort", t, func(ctx convey.C) {
 		err := d.BatchUpdateMemberSort(sort)

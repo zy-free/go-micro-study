@@ -1,4 +1,4 @@
-package dao
+package member
 
 import (
 	"flag"
@@ -13,8 +13,8 @@ var (
 )
 
 func TestMain(m *testing.M) {
-	dir ,_ :=  filepath.Abs("../conf/test.toml")
-	flag.Set("conf",dir)
+	dir, _ := filepath.Abs("../conf/test.toml")
+	flag.Set("conf", dir)
 	flag.Parse()
 	if err := conf.Init(); err != nil {
 		panic(err)

@@ -1,19 +1,29 @@
-package dao
+package member
 
 import (
 	"bytes"
 	"database/sql"
+	"fmt"
 	"github.com/pkg/errors"
-	"github.com/zy-free/micro-study/api/member/model"
+	"github.com/zy-free/micro-study/api/member/model/member"
 	"github.com/zy-free/micro-study/lib/xstr"
 	"strconv"
 	"strings"
 	"time"
 )
 
-func (dao *Dao) InitMember(arg *model.ArgMemberInit) (err error) {
+const (
+	_shard = 100
+)
+
+// 分表命名:表名+hit
+func memberHit(id int64) string {
+	return fmt.Sprintf("member_%d", id%_shard)
+}
+
+func (dao *Dao) InitMember(arg *member.ArgMemberInit) (err error) {
 	now := time.Now()
-	sql := `INSERT IGNORE INTO member (phone,name,created_at,updated_at) VALUES(?,?,?,?)`
+	sql := `INSERT IGNORE INTO ` + memberHit(123) + ` (phone,name,created_at,updated_at) VALUES(?,?,?,?)`
 	if _, err = dao.member.Exec(sql, arg.Phone, arg.Name, now, now); err != nil {
 		return errors.Wrapf(err, "InitMember arg(%v)", arg)
 	}
@@ -21,7 +31,7 @@ func (dao *Dao) InitMember(arg *model.ArgMemberInit) (err error) {
 }
 
 // 创建单个
-func (dao *Dao) AddMember(arg *model.ArgMemberAdd) (id int64, err error) {
+func (dao *Dao) AddMember(arg *member.ArgMemberAdd) (id int64, err error) {
 	now := time.Now()
 	sql := `INSERT INTO member (phone,name,created_at,updated_at) VALUES(?,?,?,?)`
 	result, err := dao.member.Exec(sql, arg.Phone, arg.Name, now, now)
@@ -34,7 +44,7 @@ func (dao *Dao) AddMember(arg *model.ArgMemberAdd) (id int64, err error) {
 }
 
 // 批量创建
-func (dao *Dao) BatchAddMember(args []*model.ArgMemberAdd) (affectRow int64, err error) {
+func (dao *Dao) BatchAddMember(args []*member.ArgMemberAdd) (affectRow int64, err error) {
 	now := time.Now()
 	sql := `INSERT INTO member (phone,name,created_at,updated_at) VALUES `
 	var valueString []string
@@ -62,7 +72,7 @@ func (dao *Dao) DeleteMember(id int64) (err error) {
 }
 
 // 更新单个
-func (dao *Dao) UpdateMember(arg *model.ArgMemberUpdate) (err error) {
+func (dao *Dao) UpdateMember(arg *member.ArgMemberUpdate) (err error) {
 	sql := "UPDATE member SET name =:name, "
 	updateMap := map[string]interface{}{}
 	updateMap["id"] = arg.ID
@@ -83,7 +93,7 @@ func (dao *Dao) UpdateMember(arg *model.ArgMemberUpdate) (err error) {
 }
 
 // 更新或创建
-func (dao *Dao) SetMember(arg *model.ArgMemberSet) (err error) {
+func (dao *Dao) SetMember(arg *member.ArgMemberSet) (err error) {
 	now := time.Now()
 	sql := "INSERT INTO member (id,phone,name,age,address,created_at,updated_at) VALUES (?,?,?,?,?,?,?) " +
 		"ON DUPLICATE KEY UPDATE phone=?,name=?,age=?,address=?,updated_at=?"
@@ -94,7 +104,7 @@ func (dao *Dao) SetMember(arg *model.ArgMemberSet) (err error) {
 }
 
 // 批量更改顺序
-func (dao *Dao) BatchUpdateMemberSort(args model.ArgMemberSort) (err error) {
+func (dao *Dao) BatchUpdateMemberSort(args member.ArgMemberSort) (err error) {
 	var (
 		buf bytes.Buffer
 		ids []int64
@@ -117,8 +127,8 @@ func (dao *Dao) BatchUpdateMemberSort(args model.ArgMemberSort) (err error) {
 }
 
 // 根据id查询单个
-func (dao *Dao) GetMemberByID(id int64) (m *model.Member, err error) {
-	m = &model.Member{}
+func (dao *Dao) GetMemberByID(id int64) (m *member.Member, err error) {
+	m = &member.Member{}
 	sql := `SELECT id,phone,name FROM member WHERE id = ? AND deleted = 0 `
 	if err = dao.member.Get(m, sql, id); err != nil {
 		return nil, errors.Wrapf(err, "GetMemberByID id(%d)", id)
@@ -161,8 +171,8 @@ func (dao *Dao) HasMemberByID(id int64) (has bool, err error) {
 }
 
 // 根据其他属性查询列表
-func (dao *Dao) QueryMemberByName(name string) (res []*model.Member, err error) {
-	res = make([]*model.Member, 0, 0) // 返回nil还是空切片会影响json里的结构
+func (dao *Dao) QueryMemberByName(name string) (res []*member.Member, err error) {
+	res = make([]*member.Member, 0, 0) // 返回nil还是空切片会影响json里的结构
 	sql := `SELECT phone,name FROM member WHERE name = ? AND deleted = 0 `
 	if err = dao.member.Select(&res, sql, name); err != nil {
 		return res, errors.Wrapf(err, "QueryMemberByName name(%s)", name)
@@ -171,9 +181,9 @@ func (dao *Dao) QueryMemberByName(name string) (res []*model.Member, err error) 
 }
 
 // 根据ids查询列表
-func (dao *Dao) QueryMemberByIDs(ids []int64) (res map[int64]*model.Member, err error) {
-	var t []*model.Member
-	res = make(map[int64]*model.Member)
+func (dao *Dao) QueryMemberByIDs(ids []int64) (res map[int64]*member.Member, err error) {
+	var t []*member.Member
+	res = make(map[int64]*member.Member)
 	sql := "SELECT id,phone,name FROM member WHERE id IN (" + xstr.JoinInts(ids) + ") AND deleted = 0 "
 	if err = dao.member.Select(&t, sql); err != nil {
 		return res, errors.Wrapf(err, "QueryMemberByIDs ids(%v)", ids)

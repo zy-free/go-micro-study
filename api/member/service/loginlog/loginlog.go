@@ -9,7 +9,7 @@ import (
 )
 
 type Service struct {
-	dao *loginlog.Dao
+	logDao *loginlog.Dao
 
 	// rpc
 }
@@ -20,7 +20,7 @@ func New() (s *Service) {
 		panic(fmt.Sprintf("conf.Init() error(%v)", err))
 	}
 	s = &Service{
-		dao: loginlog.New(conf.Conf),
+		logDao: loginlog.New(conf.Conf),
 	}
 
 	// 可开启定时任务
